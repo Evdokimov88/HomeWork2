@@ -67,14 +67,14 @@ class SpecialBox extends InfectionalHosp {//создаем подкласс в �
 
     SpecialBox(String fullname, String city, int age, String diagnosis, String infection, boolean covid19) {
         super(fullname, city, age, diagnosis, infection);
-        this.covid19 = covid19;
+        this.covid19=covid19;
     }
 
     public void antiVirus() {
-        if (covid19=true){
+        if (covid19==true){
         System.out.println("Лечим противовирусными препаратами против короновируса");
         }
-        else {
+        else if(covid19==false) {
             System.out.println("Лечим противовирусными препаратами против ОРВИ");
         }
     }
@@ -96,8 +96,9 @@ class Traumatology extends Hospital {//класс травматология р�
 
 public class Main {
     public static void main(String[] args) {
-        SpecialBox patientCovid = new SpecialBox("Ivanov Ivan", "Kazan", 47, "CovID19",
-                "Вирусная", false);//создаем пациента спец бокса с подтвержденным короновирусом=))
+        SpecialBox patientCovid;//создаем пациента спец бокса с подтвержденным короновирусом=))
+        patientCovid = new SpecialBox("Ivanov Ivan", "Kazan", 47, "CovID19",
+                "Вирусная", false);
         System.out.println(patientCovid.fullname + patientCovid.diagnosis);
         patientCovid.antiVirus();//лечим
         Traumatology patientfracture = new Traumatology("Sidorov Sergey", "Chistopol", 35,
