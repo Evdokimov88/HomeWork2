@@ -12,7 +12,7 @@ public class Vendomat {
         Cofee("нажмите клавишу 3", 79),
         Americano("нажмите клавишу 4", 85),
         BlackTea("нажмите клавишу 5", 50),
-        GreenTea("нажмите клавишу 6", 50);
+        GreenTea("нажмите клавишу 6", 35);
 
         private String description;
         public int price;
@@ -44,7 +44,9 @@ public class Vendomat {
     }
 
     public static void main(String[] args) {
-        System.out.println("Внесите сумму для оплаты напитка на внутренний счет автомата");
+
+
+        System.out.println("Внесите сумму для оплаты напитка на внутренний счет автомата.");
         Scanner scan = new Scanner(System.in);
         int cashInput = scan.nextInt();
         if (cashInput >= 0) {
@@ -60,7 +62,6 @@ public class Vendomat {
             Menu m[] = Menu.values();
             while (true) {
                 int drinkNum = scan.nextInt();
-
                 if ((drinkNum >= 1) & (drinkNum <= 6)) {
                     System.out.println("Выбран напиток " + m[drinkNum - 1]);
                     if (accInput.getAccount() >= m[drinkNum - 1].getPrice()) {
@@ -68,9 +69,10 @@ public class Vendomat {
                                 m[drinkNum - 1].getPrice()) + " рублей");
                         System.out.println("Напиток готов! \nОсторожно, горячо!!!");
                     } else if (accInput.getAccount() < m[drinkNum - 1].getPrice()) {
-                        System.out.println("На счете не достаточно средств. \nПопробуйте выбрать более дешевый напиток");
-                        continue;
+                        System.out.println("На счете не достаточно средств.");
+                        break;
                     }
+
                     break;
                 } else {
                     System.out.println("Выбран несуществующий напиток. \nПовторите свой выбор:");
@@ -78,10 +80,12 @@ public class Vendomat {
                 continue;
             }
         } else {
-            System.out.println("Тугрики не принимаем");
+            System.out.println("Отрицательные деньги не принимаем");
+
         }
     }
 }
+
 
 
 
