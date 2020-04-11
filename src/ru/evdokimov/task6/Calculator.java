@@ -26,8 +26,8 @@ public class Calculator {
 
     }
     public static void percent (double vr1, double vr2){
-        double percent = (vr1/100)*vr2;
-        System.out.println(vr2+" процентов от "+vr1+" = "+percent);
+        double percent = (vr1/100)*(Math.abs(vr2));
+        System.out.println(Math.abs(vr2)+" процентов от "+vr1+" = "+percent);
 
     }
 
