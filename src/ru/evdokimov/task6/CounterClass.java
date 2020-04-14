@@ -8,7 +8,7 @@ class CounterClass {
     }
 
     public static int getCounter() {
-        return counter; //создаем статический метод в котором возвращаем значение созданных обьектов
+        return counter; //создаем статический метод в котором возвращаем количество созданных обьектов
     }
     public static void main(String[] args){
         CounterClass obj =  new CounterClass();
