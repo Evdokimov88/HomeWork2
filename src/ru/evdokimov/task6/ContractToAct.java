@@ -1,17 +1,20 @@
 package ru.evdokimov.task6;
 
-class Contract {
+import java.util.Arrays;
+
+class Contract {            //создаем класс Договор
     public int number;
     public String date;
     public String[] prodList;
 
-    Contract(int number, String date, String[] prodList) {
+
+    Contract(int number, String date, String[] prodList) { //Инициализируем поля договора
         this.date = date;
         this.prodList = prodList;
         this.number = number;
     }
 
-    public String[] getProdList() {
+    public String[] getProdList() { //геттерами возращаем значения полей
         return prodList;
     }
 
@@ -24,12 +27,12 @@ class Contract {
     }
 }
 
-class Act {
+class Act { //создаем класс Акт
     private int number;
     private String date;
     private String[] prodList;
 
-    public void setNumber(int number) {
+    public void setNumber(int number) { //сеттерами присваиваем значения полям этого класса
         this.number = number;
     }
 
@@ -54,13 +57,14 @@ class Act {
     }
 }
 
-class ContractToAct {
+class ContractToAct { //отдельный класс для конвертации договора в акт
 
     static String date;
     static String[] prodList;
     static int number;
 
-    public static void contractToAct(Contract contract, Act act) {
+    public static void contractToAct(Contract contract, Act act) { //в данном методе конвертируем договор в акт, в
+        //в качестве параметров принимаем данные полей договора
         date = contract.getDate();
         act.setDate(date);
         prodList = contract.getProdList();
@@ -78,10 +82,10 @@ class ContractToAct {
         Contract contract1 = new Contract(56, "25.12.2008", new String[]{"Хлеб", "Молоко", "Вискарь", "Сахар"});
         Act act1 = new Act();
         System.out.println("Номер акта: " + act.getNumber() + " Дата акта: " + act.getDate() + " Список товаров: "
-                + act.getProdList());
+                + Arrays.toString(act.getProdList()));
         contractToAct(contract1, act1);
         System.out.println("Номер акта: " + act1.getNumber() + " Дата акта: " + act1.getDate() + " Список товаров: "
-                + act1.getProdList());
+                + Arrays.toString(act1.getProdList()));
     }
 
 

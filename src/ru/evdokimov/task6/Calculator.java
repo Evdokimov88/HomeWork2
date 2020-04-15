@@ -47,5 +47,6 @@ public class Calculator {
         proizved(vr1,vr2);
         delenie(vr1, vr2);
         percent(vr1,vr2);
+
     }
 }
