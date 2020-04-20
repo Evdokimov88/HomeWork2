@@ -10,8 +10,7 @@ enum Food {
 class Child {
 
     public static void eating(Food food) throws Exception {
-        System.out.println("Сын: Спасибо, мама");
-        if (food == Food.Apple || food == Food.Candies) {
+             if (food == Food.Apple || food == Food.Candies) {
             System.out.println("Вкусно, съел за обе щеки");
         } else {
 
@@ -38,6 +37,9 @@ class Main {
 
                 } catch (Exception e) {
                     System.err.println("Мама: Накормить не удалось");
+                }
+                finally {
+                    System.out.println("Сын: Спасибо, мама");
                 }
 
             } else {
