@@ -14,7 +14,14 @@ public class Main {
         File dir = new File("c:\\Test Folder");
 
         File file = new File(dir,"test.txt");
-        boolean createDir = dir.mkdir();
+        try {
+            boolean createDir = dir.mkdir();
+            if (createDir)
+                System.out.println("Каталог создан");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         try {
             boolean createFile = file.createNewFile();
             if (createFile)
@@ -23,15 +30,30 @@ public class Main {
         catch (IOException e){
             e.printStackTrace();
         }
-        File newFile = new File(dir, "newtest.txt");
-        file.renameTo(newFile);
-        System.out.println("Файл переименован");
-        Path origFile = Paths.get("c:\\Test Folder\\newtest.txt");
-        Path copyedFile = Paths.get("c:\\Test Folder\\newtest_copy.txt");
+        File newFile = new File(dir, "renamed_test.txt");
+        try {
+            boolean renamed = file.renameTo(newFile);
+            if(renamed)
+            System.out.println("Файл переименован");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Path origFile = Paths.get("c:\\Test Folder\\renamed_test.txt");
+        Path copyedFile = Paths.get("c:\\Test Folder\\test_copy.txt");
         try {
             Files.copy(origFile, copyedFile);
             System.out.println("Файл скопирован");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+        boolean deleted = Files.deleteIfExists(copyedFile);
+        if(deleted)
+            System.out.println("File deleted");
+        }
+        catch (IOException e){
             e.printStackTrace();
         }
 
