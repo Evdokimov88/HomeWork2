@@ -36,7 +36,7 @@ public class Main {
             }
 
         }
-        Book darkFields = new Book("Области тьмы", "Аллан Грин", "2001");
+        Book darkFields = new Book("Области тьмы", "Алан Глинн", "2001");
         Book duhless = new Book("Духлесс", "Сергей Минаев", "2006");
         Book hobbit = new Book("Хоббит. Туда и обратно", "Дж. Толкиен", "1937");
         FileOutputStream fos = new FileOutputStream("c:\\libs\\lib.txt");
