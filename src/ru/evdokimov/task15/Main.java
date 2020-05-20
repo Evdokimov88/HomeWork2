@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Date;
 
 @JsonAutoDetect
@@ -37,23 +38,11 @@ class CovidByCountry {
 public CovidByCountry(){
     super();
 }
-   public CovidByCountry(String country, int death, int confirmed, int activity, int recovered, Date date) {
-        this.activity=activity;
-        this.recovered=recovered;
-        this.country=country;
-        this.confirmed=confirmed;
-        this.death=death;
-        this.date=date;
-    }
-
-
     @JsonProperty("Active")
     public void setActivity(int activity) {
         this.activity = activity;
     }
-    public int getActivity(){
-        return activity;
-    }
+
     @JsonProperty("Confirmed")
     public void setConfirmed(int confirmed) {
         this.confirmed = confirmed;
@@ -69,12 +58,10 @@ public CovidByCountry(){
         this.date = date;
     }
 
-
     @JsonProperty("Deaths")
     public void setDeath(int death) {
         this.death = death;
     }
-
 
     @JsonProperty("Recovered")
     public void setRecovered(int recovered) {
@@ -83,12 +70,12 @@ public CovidByCountry(){
 
     @Override
     public String toString() {
-        return  "Страна"+getActivity()+
-                "Подтвержденные случаи: "+confirmed+
-                "Умерло: "+death+
-                "Вылечилось: "+recovered+
-                "На лечении: "+activity+
-                "Дата обновления: "+date;
+        return  "Страна: "+country+
+                "\nПодтвержденные случаи: "+confirmed+
+                "\nУмерло: "+death+
+                "\nВылечилось: "+recovered+
+                "\nНа лечении: "+activity+
+                "\nДата обновления: "+date;
     }
 }
 
@@ -104,7 +91,7 @@ public class Main {
 
             ObjectMapper mapper = new ObjectMapper();
             CovidByCountry[] covid = mapper.readValue(str, CovidByCountry[].class);
-            System.out.println(covid);
+            System.out.println(Arrays.toString(covid));
 
         } catch (IOException e) {
             System.out.println(e);
