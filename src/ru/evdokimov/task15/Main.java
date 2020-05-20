@@ -70,12 +70,12 @@ public CovidByCountry(){
 
     @Override
     public String toString() {
-        return  "Страна: "+country+
+        return  "\nСтрана: "+country+
                 "\nПодтвержденные случаи: "+confirmed+
                 "\nУмерло: "+death+
                 "\nВылечилось: "+recovered+
                 "\nНа лечении: "+activity+
-                "\nДата обновления: "+date;
+                "\nДата обновления: "+date+"\n\n";
     }
 }
 
