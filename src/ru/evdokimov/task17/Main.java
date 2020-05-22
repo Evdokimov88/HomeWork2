@@ -12,7 +12,6 @@ class Person {
         this.name = name;
     }
 
-
     @Override
     public String toString() {
         return "Person{" +
@@ -22,25 +21,13 @@ class Person {
     }
 }
 
-class PersonSuperComparator implements Comparator<Person> {
+abstract class PersonSuperComparator implements Comparator<Person> {
 
-    @Override
-    public int compare(Person person1, Person person2) {
-        return 0;
-    }
-}
+    public static Comparator<Person> AgeComporator = (person1, person2) -> Integer.compare(person1.age, person2.age);
 
-class PersonAgeCompare extends PersonSuperComparator {
-    public int compare(Person person1, Person person2) {
-        return Integer.compare(person1.age, person2.age);
-    }
 
-}
+    public static Comparator<Person> NameComparator = (person1, person2) -> CharSequence.compare(person1.name, person2.name);
 
-class PersonNameCompare extends PersonSuperComparator {
-    public int compare(Person person1, Person person2) {
-        return CharSequence.compare(person1.name, person2.name);
-    }
 
 }
 
@@ -56,15 +43,18 @@ public class Main {
             System.out.println(persons.toString());
         }
         System.out.println("Сортировка по возрасту");
-        Arrays.sort(person, new PersonAgeCompare());
+        Arrays.sort(person, PersonSuperComparator.AgeComporator);
         for (Person persons : person) {
             System.out.println(persons);
 
         }
         System.out.println("Сортировка по имени");
-        Arrays.sort(person, new PersonNameCompare());
+        Arrays.sort(person, PersonSuperComparator.NameComparator);
         for (Person persons : person) {
             System.out.println(persons);
         }
+
     }
 }
+
+
