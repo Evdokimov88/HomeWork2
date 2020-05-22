@@ -4,19 +4,18 @@ import java.io.File;
 import java.io.IOException;
 
 class FileVisitor {
+public static void print(){
 
-    public void visitor(File file) throws IOException {
-
-        System.out.println(file.getName());
-
-
-        if (file.isDirectory()) {
-            for (File newFile : file.listFiles()) {
-
-                this.visitor(newFile);
+}
+    public static void visitor(File file) throws IOException {
+               if (file.isDirectory()) {
+                File[] newFile = file.listFiles();
+                for (int i = 0; i < newFile.length; i++) {
+                    System.out.println(newFile[i].getName());
+                    visitor(newFile[i]);
+                }
             }
         }
-    }
 }
 
 
@@ -26,9 +25,7 @@ public class Main {
         FileVisitor vf = new FileVisitor();
         try {
             vf.visitor(file);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
