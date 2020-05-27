@@ -7,7 +7,7 @@ class Test {
 
     }
 
-   /* public Set<String> removeEvenLength1(Set<String> set) {
+    public Set<String> removeEvenLength1(Set<String> set) {
         String[] array;
         array = new String[set.size()];
         array = set.toArray(array);
@@ -26,7 +26,7 @@ class Test {
         }
 
         return set;
-    }*/
+    }
     public Set<String> removeEvenLength(Set<String> set) {
 
         Iterator<String> iterator = set.iterator();
