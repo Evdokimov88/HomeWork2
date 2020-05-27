@@ -7,7 +7,7 @@ class Test {
 
     }
 
-    public Set<String> removeEvenLength(Set<String> set) {
+   /* public Set<String> removeEvenLength1(Set<String> set) {
         String[] array;
         array = new String[set.size()];
         array = set.toArray(array);
@@ -24,6 +24,28 @@ class Test {
 
             }
         }
+
+        return set;
+    }*/
+    public Set<String> removeEvenLength(Set<String> set) {
+
+        Iterator<String> iterator = set.iterator();
+
+        char[] chars = new char[iterator.next().length()];
+        while (iterator.hasNext()) {
+            chars = iterator.next().toCharArray();
+
+            if (chars.length % 2 != 0) {
+                System.out.println(String.valueOf(chars));
+            }
+        }
+        if (chars.length % 2 == 0) {
+            set.remove(String.valueOf(chars));
+
+        }
+
+
+
 
         return set;
     }
@@ -47,7 +69,11 @@ public class Main {
         for (String entry : set)
             System.out.print(entry + " ");
         Test test = new Test();
+       // test.removeEvenLength1(set);
         test.removeEvenLength(set);
+        for (String entry : set)
+            System.out.print(entry + " ");
+
 
     }
 }
