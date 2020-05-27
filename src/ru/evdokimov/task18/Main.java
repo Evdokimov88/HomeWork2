@@ -108,5 +108,6 @@ bs.addProduct("Монитор",55);
         bs.getProductQuantity("Монитор");
         bs.clear();
         bs.getProducts();
+
     }
 }
