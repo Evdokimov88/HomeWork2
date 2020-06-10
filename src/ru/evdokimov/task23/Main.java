@@ -1,6 +1,7 @@
 package ru.evdokimov.task23;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 class Person{
@@ -84,7 +85,7 @@ Person(int age, String surname, String sex){
 }
 
 public class Main {
-    public static Map<String, Person> createMap()
+    /*public static Map<String, Person> createMap()
     {
         Map<String, Person> book = new HashMap<>();
         Person person1 = new Person(29,"Петрова","жен");
@@ -98,13 +99,20 @@ public class Main {
         book.put("Key5", person4);
         book.put("Key6", person4);
         return book;
-    }
-    public static void removeTheDuplicates(Map<String, Person> map){
-        Map<String, Person> copy = new HashMap<>(map);
-        for (Map.Entry<String, Person> pair: copy.entrySet())
-        {
-            if (pair.equals(map) && pair.hashCode()==map.hashCode())
-                removeItemFromMapByValue(map, pair.getValue());
+    }*/
+    public static void removeTheDuplicates(Map<String, Person> map) {
+        //Map<String, Person> copy = new HashMap<>(map);
+        try {
+            for (Map.Entry<String, Person> pair1 : map.entrySet()) {
+                for (Map.Entry<String, Person> pair2 : map.entrySet()) {
+                    if (pair1.hashCode()==pair2.hashCode()) {
+                        removeItemFromMapByValue(map, pair1.getValue());
+                    }
+                    System.out.println();
+                }
+            }
+        } catch (Exception e) {
+            e.getMessage();
         }
     }
     public static void removeItemFromMapByValue(Map<String, Person> map, Person value)
@@ -117,7 +125,19 @@ public class Main {
         }
     }
     public static void main(String[] args) {
-removeTheDuplicates(createMap());
-System.out.println(createMap().toString());
+            Map<String, Person> book = new HashMap<>();
+            Person person1 = new Person(29,"Петрова","жен");
+            Person person2 = new Person(34, "Сидорова", "жен");
+            Person person3 = new Person(34, "Тихонова", "жен");
+            Person person4 = new Person(35, "Петров", "муж");
+            book.put("Key1", person1);
+            book.put("Key2", person1);
+            book.put("Key3", person2);
+            book.put("Key4", person3);
+            book.put("Key5", person4);
+            book.put("Key6", person4);
+
+removeTheDuplicates(book);
+System.out.println(book);
     }
 }
