@@ -1,37 +1,17 @@
 package ru.evdokimov.task23;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-class Person{
-int age;
-String surname;
-String sex;
-private int id;
-Person(int age, String surname, String sex){
-    this.age=age;
-    this.surname=surname;
-    this.sex=sex;
-}
+class Person {
+    int age;
+    String surname;
+    String sex;
+    private int id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setAge(int age) {
+    Person(int age, String surname, String sex) {
         this.age = age;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setSurname(String surname) {
         this.surname = surname;
+        this.sex = sex;
     }
 
     public String getSurname() {
@@ -42,18 +22,16 @@ Person(int age, String surname, String sex){
         return sex;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    @Override
+    public String toString() {
+        return "Person{" +
+                "Возраст=" + age +
+                ", Фамилия='" + surname + '\'' +
+                ", Пол='" + sex + '\'' +
+                '}' + "\n";
     }
-@Override
-    public String toString (){
-    return "Person{" +
-            "Возраст=" + age +
-            ", Фамилия='" + surname + '\'' +
-            ", Пол='" + sex + '\'' +
-            '}';
-}
-@Override
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -65,29 +43,27 @@ Person(int age, String surname, String sex){
         Person guest = (Person) obj;
         return id == guest.id
                 && (surname == guest.surname
-                || (surname != null &&surname.equals(guest.getSurname())))
+                || (surname != null && surname.equals(guest.getSurname())))
                 && (sex == guest.sex
                 || (sex != null && sex.equals(guest.getSex())
                 && (age == guest.age)
         ));
     }
+
     public int hashCode() {
-        final int prime = 31;
         int result = 1;
-        result = prime * result + ((surname== null) ? 0 : surname.hashCode());
-        result = prime * result + id;
-        result = prime * result + age;
-        result = prime * result +
-                ((sex == null) ? 0 : sex.hashCode());
+        result = ((surname == null) ? 0 : surname.hashCode());
+        result = id;
+        result = age;
+        result = ((sex == null) ? 0 : sex.hashCode());
         return result;
     }
 }
 
 public class Main {
-    public static Map<String, Person> createMap()
-    {
+    public static Map<String, Person> createMap() {
         Map<String, Person> book = new HashMap<>();
-        Person person1 = new Person(29,"Петрова","жен");
+        Person person1 = new Person(29, "Петрова", "жен");
         Person person2 = new Person(34, "Сидорова", "жен");
         Person person3 = new Person(34, "Тихонова", "жен");
         Person person4 = new Person(35, "Петров", "муж");
@@ -97,33 +73,47 @@ public class Main {
         book.put("Key4", person3);
         book.put("Key5", person4);
         book.put("Key6", person4);
+        book.put("Key7", person1);
         return book;
     }
+
     public static void removeTheDuplicates(Map<String, Person> map) {
-        try {
-           for (Map.Entry<String, Person> pair1 : map.entrySet()) {
-                for (Map.Entry<String, Person> pair2 : map.entrySet()) {
-                    if (pair1.getValue().equals(pair2.getValue())) {
-                        removeItemFromMapByValue(map, pair2.getValue());
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.getMessage();
+        ArrayList<Person> list = new ArrayList();
+        for (HashMap.Entry<String, Person> pair : map.entrySet()) {
+            list.add(pair.getValue());
         }
-    }
-    public static void removeItemFromMapByValue(Map<String, Person> map, Person value)
-    {
-        Map<String, Person> copy = new HashMap<>(map);
-        for (Map.Entry<String, Person> pair: copy.entrySet())
-        {
-            if (pair.getValue().equals(value))
-                map.remove(pair.getKey());
+        for (Person val : list) {
+            if (Collections.frequency(list, val) > 1) {
+                removeItemFromMapByValue(map, val);
+            }
         }
 
     }
+
+    public static void removeTheDuplicates1(Map<String, Person> map) {
+        Collection<Person> list = map.values();
+        for (Iterator<Person> itr = list.iterator(); itr.hasNext(); ) {
+            if (Collections.frequency(list, itr.next()) > 1) {
+
+                itr.remove();
+            }
+        }
+
+    }
+
+    public static void removeItemFromMapByValue(Map<String, Person> map, Person value) {
+        Map<String, Person> copy = new HashMap<>(map);
+        for (Map.Entry<String, Person> pair : copy.entrySet()) {
+            if (pair.getValue().equals(value))
+                map.remove(pair.getKey());
+
+        }
+
+    }
+
     public static void main(String[] args) {
-removeTheDuplicates(createMap());
-System.out.println(createMap().toString());
+        Map m = createMap();
+        removeTheDuplicates1(m);
+        System.out.println(m.toString());
     }
 }
