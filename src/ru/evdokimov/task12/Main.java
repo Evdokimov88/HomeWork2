@@ -1,14 +1,15 @@
 package ru.evdokimov.task12;
 
 import java.io.*;
+import java.util.Arrays;
 
 class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String title;
-    public String author;
-    public String year;
+    public static String title;
+    public static String author;
+    public static String year;
 
     Book(String title, String author, String year) {
         this.title = title;
@@ -16,64 +17,59 @@ class Book implements Serializable {
         this.year = year;
     }
 
-    @Override
-    public String toString() {
-        return title + ", автор " + author + ", год издания " +
-                year;
+    public static void setTitle(String title) {
+        Book.title = title;
     }
+
+    public static String getTitle() {
+        return title;
+    }
+
+
+    public static String getAuthor() {
+        return author;
+    }
+
+    public static String getYear() {
+        return year;
+    }
+
+
+    /* public static void print() {
+        System.out.println("Название: " + Arrays.toString(getTitle()) + ", Автор: " + Arrays.toString(getAuthor()) +
+                    ", Год издания: " + Arrays.toString(getYear()));
+
+    }*/
+
 }
 
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        File file = new File("c:\\libs");
+    public static void main(String[] args) throws IOException {
 
-        if (file.exists()) {
-            System.out.println("Каталог c:\\libs уже имеется");
-        } else {
-            if (file.mkdir()) {
-                System.out.print("Создан каталог с библиотекой c:\\libs");
-            }
-
-        }
-        Book darkFields = new Book("Области тьмы", "Алан Глинн", "2001");
-        Book duhless = new Book("Духлесс", "Сергей Минаев", "2006");
-        Book hobbit = new Book("Хоббит. Туда и обратно", "Дж. Толкиен", "1937");
-        FileOutputStream fos = new FileOutputStream("c:\\libs\\lib.txt");
+       /* String[] title = {"Хоббит. Туда и обратно", "Области тьмы", "Духлесс"};
+        String[] author = {"Дж. Толкиен", "Алан Глинн", "Сергей Минаев"};
+        String[] year = {"1937", "2001", "2006"};
+        Book books = new Book("Хоббит. Туда и обратно","Дж. Толкиен","1937");
+        FileOutputStream fos = new FileOutputStream("lib.txt");
         ObjectOutputStream outs = new ObjectOutputStream(fos);
         try {
-            outs.writeObject(darkFields);
-            outs.writeObject(duhless);
-            outs.writeObject(hobbit);
+            outs.writeObject(books);
             outs.close();
-            System.out.println("Книги добавлены в библиотеку c:/libs/lib.txt");
 
         } catch (IOException e) {
             e.getMessage();
+        }*/
+       try {
+            FileInputStream fis = new FileInputStream("lib.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Book lib = (Book) ois.readObject();
+            System.out.println("В Библиотеке имеются книги: ");
+            System.out.println(lib.getTitle());
+
+        } catch (ClassNotFoundException e) {
+            e.getMessage();
         }
-
-        //Произошла запись книг в библиотеку, ниже идет считывание с библиотеки
-
-        File file1 = new File("c:\\libs\\lib.txt");
-        if (file1.exists()) {
-            try {
-                FileInputStream fis = new FileInputStream("c:\\libs\\lib.txt");
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                Book bookRestored = (Book) ois.readObject();
-                Book bookRestored1 = (Book) ois.readObject();
-                Book bookRestored2 = (Book) ois.readObject();
-                System.out.println("В библиотеке храняться следущие книги:");
-                System.out.println(bookRestored);
-                System.out.println(bookRestored1);
-                System.out.println(bookRestored2);
-                ois.close();
-            } catch (ClassNotFoundException e) {
-                e.getMessage();
-            }
-        } else {
-            System.out.println("Библиотека пуста");
-        }
-
 
     }
 }
