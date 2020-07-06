@@ -1,68 +1,81 @@
 package ru.evdokimov.task26;
-import java.util.ArrayList;
-import java.util.List;
-class Tree<T extends Comparable<T>> {
-    private T val;
-    public Tree left;
-    public Tree right;
-    private Tree parent;
-    private List<T> listForPrint = new ArrayList<>();
 
-    public T val() {
-        return val;
+
+import java.util.Stack;
+
+class Node {
+    public int data;
+    public Node leftChild;
+    public Node rightChild;
+Node(int data){
+    this.data=data;
+    leftChild=null;
+    rightChild=null;
     }
 
-    public Tree left() {
-        return left;
+    public Node getLeftChild() {
+        return leftChild;
     }
 
-    public Tree right() {
-        return right;
+    public Node getRightChild() {
+        return rightChild;
     }
-
-    public Tree parent() {
-        return parent;
-    }
-
-    public Tree(T val, Tree parent) {
-        this.val = val;
-        this.parent = parent;
-    }
-
-    public void add(T... vals) {
-        for (T v : vals) {
-            add(v);
+    public int count() {
+        Stack<Node> stack = new Stack<>();
+        stack.push(this);
+        int count = 0;
+        while (!stack.empty()) {
+            Node node = stack.pop();
+            count++;
+            Node ch = getLeftChild();
+            if (ch != null) stack.push(ch);
+            ch = getRightChild();
+            if (ch != null) stack.push(ch);
         }
-    }
-
-    public void add(T val) {
-        if (val.compareTo(this.val) < 0) {
-            if (this.left == null) {
-                this.left = new Tree(val, this);
-            } else if (this.left != null)
-                this.left.add(val);
-        } else {
-            if (this.right == null) {
-                this.right = new Tree(val, this);
-            } else if (this.right != null)
-                this.right.add(val);
-        }
+        return count;
     }
 }
-public class Main{
+class Tree {
 
-   public static int countLeaves(Tree tree) {
-        if (tree == null)
-            return 0;
-        else if (tree.left != null || tree.right != null) {
-            return countLeaves(tree.left) + countLeaves(tree.right);
-        } else {
-            return 1;
+    Node root;
+
+
+    private Node addRecursive(Node node, int data) {
+        if (node == null) {
+            return new Node(data);
         }
+
+        if (data < node.data) {
+            node.leftChild = addRecursive(node.leftChild, data);
+        } else if (data > node.data) {
+            node.rightChild = addRecursive(node.rightChild, data);
+        } else {
+            return node;
+        }
+
+        return node;
     }
-    public static void main(String[] args) {
-        Tree<Integer> tree = new Tree<>(33, null);
-        tree.add(5, 35, 1, 20, 4, 17, 31, 99, 18, 19, 7, 12, 98, 120);
-        System.out.println(countLeaves(tree));
+
+
+    public void add(int data) {
+        root = addRecursive(root, data);
     }
+
+}
+    public class Main {
+        public static void main(String[] args) {
+            Tree tree = new Tree();
+            tree.add(45);
+            tree.add(17);
+            tree.add(83);
+            tree.add(3);
+            tree.add(76);
+            tree.add(22);
+            tree.add(33);
+            tree.add(100);
+            tree.add(51);
+            tree.add(1);
+            tree.add(14);
+            tree.add(89);
+        }
     }
